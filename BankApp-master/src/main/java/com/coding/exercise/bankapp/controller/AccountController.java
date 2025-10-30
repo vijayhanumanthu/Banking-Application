@@ -40,4 +40,16 @@ public class AccountController {
 
 		return bankingService.findByAccountNumber(accountNumber);
 	}
+	
+	@PostMapping(path = "/add/{customerNumber}")
+	@ApiOperation(value = "Add a new account", notes = "Create an new account for existing customer.")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
+
+	public ResponseEntity<Object> addNewAccount(@RequestBody AccountInformation accountInformation,
+			@PathVariable Long customerNumber) {
+
+		return bankingService.addNewAccount(accountInformation, customerNumber);
+	}
 }
