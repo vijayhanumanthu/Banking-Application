@@ -52,4 +52,16 @@ public class AccountController {
 
 		return bankingService.addNewAccount(accountInformation, customerNumber);
 	}
+	
+	@PutMapping(path = "/transfer/{customerNumber}")
+	@ApiOperation(value = "Transfer funds between accounts", notes = "Transfer funds between accounts.")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Object.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
+
+	public ResponseEntity<Object> transferDetails(@RequestBody TransferDetails transferDetails,
+			@PathVariable Long customerNumber) {
+
+		return bankingService.transferDetails(transferDetails, customerNumber);
+	}
 }
