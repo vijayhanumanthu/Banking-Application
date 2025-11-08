@@ -67,5 +67,23 @@ public class BankingServiceImpl implements BankingService {
 		
 	}
 
+		public ResponseEntity<Object> addNewAccount(AccountInformation accountInformation, Long customerNumber) {
+		
+		Optional<Customer> customerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
+
+		if(customerEntityOpt.isPresent()) {
+			accountRepository.save(bankingServiceHelper.convertToAccountEntity(accountInformation));
+			
+			// Add an entry to the CustomerAccountXRef
+			custAccXRefRepository.save(CustomerAccountXRef.builder()
+					.accountNumber(accountInformation.getAccountNumber())
+					.customerNumber(customerNumber)
+					.build());
+			
+		}
+
+		return ResponseEntity.status(HttpStatus.CREATED).body("New Account created successfully.");
+	}
+
 
 }
