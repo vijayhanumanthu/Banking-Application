@@ -39,3 +39,14 @@ public class CustomerController {
 
 		return bankingService.findAll();
 	}
+
+	@PostMapping(path = "/add")
+	@ApiOperation(value = "Add a Customer", notes = "Add customer and create an account")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
+
+	public ResponseEntity<Object> addCustomer(@RequestBody CustomerDetails customer) {
+
+		return bankingService.addCustomer(customer);
+	}
