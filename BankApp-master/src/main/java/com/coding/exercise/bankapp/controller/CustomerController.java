@@ -50,3 +50,15 @@ public class CustomerController {
 
 		return bankingService.addCustomer(customer);
 	}
+
+	@PutMapping(path = "/{customerNumber}")
+	@ApiOperation(value = "Update customer", notes = "Update customer and any other account information associated with him.")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Object.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
+
+	public ResponseEntity<Object> updateCustomer(@RequestBody CustomerDetails customerDetails,
+			@PathVariable Long customerNumber) {
+
+		return bankingService.updateCustomer(customerDetails, customerNumber);
+	}
