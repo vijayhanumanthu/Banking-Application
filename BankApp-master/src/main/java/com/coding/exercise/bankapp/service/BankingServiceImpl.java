@@ -213,4 +213,19 @@ public class BankingServiceImpl implements BankingService {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer Number " + customerNumber + " not found.");
 		}
 	}
+
+	public ResponseEntity<Object> deleteCustomer(Long customerNumber) {
+		
+		Optional<Customer> managedCustomerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
+
+		if(managedCustomerEntityOpt.isPresent()) {
+			Customer managedCustomerEntity = managedCustomerEntityOpt.get();
+			customerRepository.delete(managedCustomerEntity);
+			return ResponseEntity.status(HttpStatus.OK).body("Success: Customer deleted.");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Customer does not exist.");
+		}
+		
+		//TODO: Delete all customer entries from CustomerAccountXRef
+	}
 }
