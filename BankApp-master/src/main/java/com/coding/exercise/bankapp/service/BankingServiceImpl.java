@@ -228,4 +228,14 @@ public class BankingServiceImpl implements BankingService {
 		
 		//TODO: Delete all customer entries from CustomerAccountXRef
 	}
+	
+	public CustomerDetails findByCustomerNumber(Long customerNumber) {
+		
+		Optional<Customer> customerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
+
+		if(customerEntityOpt.isPresent())
+			return bankingServiceHelper.convertToCustomerDomain(customerEntityOpt.get());
+		
+		return null;
+	}
 }
