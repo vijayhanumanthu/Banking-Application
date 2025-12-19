@@ -226,7 +226,6 @@ public class BankingServiceImpl implements BankingService {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Customer does not exist.");
 		}
 		
-		//TODO: Delete all customer entries from CustomerAccountXRef
 	}
 	
 	public CustomerDetails findByCustomerNumber(Long customerNumber) {
