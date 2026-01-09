@@ -23,14 +23,14 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("/api/v1")
 @Api(tags = { "Accounts and Transactions REST endpoints" })
 public class AccountController {
 
 	@Autowired
 	private BankingServiceImpl bankingService;
 
-	@GetMapping(path = "/{accountNumber}")
+	@GetMapping(path = "/accounts/{accountNumber}")
 	@ApiOperation(value = "Get account details", notes = "Find account details by account number")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Bad Request"),
