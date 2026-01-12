@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coding.exercise.bankapp.domain.AccountInformation;
 import com.coding.exercise.bankapp.domain.TransactionDetails;
 import com.coding.exercise.bankapp.domain.TransferDetails;
+import com.coding.exercise.bankapp.service.BankingService;
 import com.coding.exercise.bankapp.service.BankingServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -27,8 +28,12 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = { "Accounts and Transactions REST endpoints" })
 public class AccountController {
 
-	@Autowired
-	private BankingServiceImpl bankingService;
+	private final BankingService bankingService;
+
+    @Autowired
+    public AccountController(BankingService bankingService) {
+        this.bankingService = bankingService;
+    }
 
 	@GetMapping(path = "/accounts/{accountNumber}")
 	@ApiOperation(value = "Get account details", notes = "Find account details by account number")
