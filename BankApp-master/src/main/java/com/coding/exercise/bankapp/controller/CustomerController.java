@@ -1,4 +1,4 @@
-spackage com.coding.exercise.bankapp.controller;
+package com.coding.exercise.bankapp.controller;
 
 import java.util.List;
 

@@ -168,6 +168,7 @@ public class BankingServiceImpl implements BankingService {
         return allCustomerDetails;
     }
 
+
 	public ResponseEntity<Object> updateCustomer(CustomerDetails customerDetails, Long customerNumber) {
 		Optional<Customer> managedCustomerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
 		Customer unmanagedCustomerEntity = bankingServiceHelper.convertToCustomerEntity(customerDetails);
