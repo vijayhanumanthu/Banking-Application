@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coding.exercise.bankapp.domain.CustomerDetails;
+import com.coding.exercise.bankapp.service.BankingService;
 import com.coding.exercise.bankapp.service.BankingServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -22,23 +23,19 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("customers")
-@Api(tags = { "Customer REST endpoints" })
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-	@Autowired
-	private BankingServiceImpl bankingService;
+    private final BankingService bankingService;
 
-	@GetMapping(path = "/all")
-	@ApiOperation(value = "Find all customers", notes = "Gets details of all the customers")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    public CustomerController(BankingService bankingService) {
+        this.bankingService = bankingService;
+    }
 
-	public List<CustomerDetails> getAllCustomers() {
-
-		return bankingService.findAll();
-	}
+    @GetMapping
+    public ResponseEntity<List<CustomerDetails>> getAllCustomers() {
+        return ResponseEntity.ok(bankingService.findAllCustomers());
+    }
 
 	@PostMapping(path = "/add")
 	@ApiOperation(value = "Add a Customer", notes = "Add customer and create an account")
