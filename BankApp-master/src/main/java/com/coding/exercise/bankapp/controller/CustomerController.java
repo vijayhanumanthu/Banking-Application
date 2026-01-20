@@ -2,6 +2,8 @@ package com.coding.exercise.bankapp.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,16 +39,15 @@ public class CustomerController {
         return ResponseEntity.ok(bankingService.findAllCustomers());
     }
 
-	@PostMapping(path = "/add")
-	@ApiOperation(value = "Add a Customer", notes = "Add customer and create an account")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @PostMapping
+    public ResponseEntity<CustomerDetails> addCustomer(
+            @Valid @RequestBody CustomerDetails customer) {
 
-	public ResponseEntity<Object> addCustomer(@RequestBody CustomerDetails customer) {
+        CustomerDetails created =
+                bankingService.addCustomer(customer);
 
-		return bankingService.addCustomer(customer);
-	}
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
 
 	@PutMapping(path = "/{customerNumber}")
 	@ApiOperation(value = "Update customer", notes = "Update customer and any other account information associated with him.")
