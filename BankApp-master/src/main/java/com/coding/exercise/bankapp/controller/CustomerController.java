@@ -49,17 +49,15 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-	@PutMapping(path = "/{customerNumber}")
-	@ApiOperation(value = "Update customer", notes = "Update customer and any other account information associated with him.")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Object.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @PutMapping("/{customerNumber}")
+    public ResponseEntity<CustomerDetails> updateCustomer(
+            @Valid @RequestBody CustomerDetails customerDetails,
+            @PathVariable Long customerNumber) {
 
-	public ResponseEntity<Object> updateCustomer(@RequestBody CustomerDetails customerDetails,
-			@PathVariable Long customerNumber) {
-
-		return bankingService.updateCustomer(customerDetails, customerNumber);
-	}
+        return ResponseEntity.ok(
+                bankingService.updateCustomer(customerDetails, customerNumber)
+        );
+    }
 	
 	@DeleteMapping(path = "/{customerNumber}")
 	@ApiOperation(value = "Delete customer and related accounts", notes = "Delete customer and all accounts associated with him.")
