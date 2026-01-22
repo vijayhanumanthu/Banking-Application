@@ -59,14 +59,11 @@ public class CustomerController {
         );
     }
 	
-	@DeleteMapping(path = "/{customerNumber}")
-	@ApiOperation(value = "Delete customer and related accounts", notes = "Delete customer and all accounts associated with him.")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Object.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @DeleteMapping("/{customerNumber}")
+    public ResponseEntity<Void> deleteCustomer(
+            @PathVariable Long customerNumber) {
 
-	public ResponseEntity<Object> deleteCustomer(@PathVariable Long customerNumber) {
-
-		return bankingService.deleteCustomer(customerNumber);
-	}
+        bankingService.deleteCustomer(customerNumber);
+        return ResponseEntity.noContent().build();
+    }
 }
