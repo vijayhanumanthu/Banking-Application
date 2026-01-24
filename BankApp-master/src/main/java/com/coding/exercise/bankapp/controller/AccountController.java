@@ -24,27 +24,23 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/api/v1")
-@Api(tags = { "Accounts and Transactions REST endpoints" })
+@RequestMapping("/api/v1/accounts")
 public class AccountController {
 
-	private final BankingService bankingService;
+    private final BankingService bankingService;
 
-    @Autowired
     public AccountController(BankingService bankingService) {
         this.bankingService = bankingService;
     }
 
-	@GetMapping(path = "/accounts/{accountNumber}")
-	@ApiOperation(value = "Get account details", notes = "Find account details by account number")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @GetMapping("/{accountNumber}")
+    public ResponseEntity<AccountInformation> getAccount(
+            @PathVariable Long accountNumber) {
 
-	public ResponseEntity<Object> getByAccountNumber(@PathVariable Long accountNumber) {
-
-		return bankingService.findByAccountNumber(accountNumber);
-	}
+        return ResponseEntity.ok(
+                bankingService.findAccountByNumber(accountNumber)
+        );
+    }
 	
 	@PostMapping(path = "/add/{customerNumber}")
 	@ApiOperation(value = "Add a new account", notes = "Create an new account for existing customer.")
