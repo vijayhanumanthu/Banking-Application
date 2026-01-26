@@ -2,7 +2,10 @@ package com.coding.exercise.bankapp.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,17 +45,16 @@ public class AccountController {
         );
     }
 	
-	@PostMapping(path = "/add/{customerNumber}")
-	@ApiOperation(value = "Add a new account", notes = "Create an new account for existing customer.")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @PostMapping("/customers/{customerNumber}")
+    public ResponseEntity<AccountInformation> addAccount(
+            @Valid @RequestBody AccountInformation accountInformation,
+            @PathVariable Long customerNumber) {
 
-	public ResponseEntity<Object> addNewAccount(@RequestBody AccountInformation accountInformation,
-			@PathVariable Long customerNumber) {
+        AccountInformation account =
+                bankingService.addNewAccount(accountInformation, customerNumber);
 
-		return bankingService.addNewAccount(accountInformation, customerNumber);
-	}
+        return ResponseEntity.status(HttpStatus.CREATED).body(account);
+    }
 	
 	@PutMapping(path = "/transfer/{customerNumber}")
 	@ApiOperation(value = "Transfer funds between accounts", notes = "Transfer funds between accounts.")
