@@ -56,17 +56,14 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
 	
-	@PutMapping(path = "/transfer/{customerNumber}")
-	@ApiOperation(value = "Transfer funds between accounts", notes = "Transfer funds between accounts.")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Object.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @PostMapping("/customers/{customerNumber}/transfer")
+    public ResponseEntity<Void> transferAmount(
+            @Valid @RequestBody TransferDetails transferDetails,
+            @PathVariable Long customerNumber) {
 
-	public ResponseEntity<Object> transferDetails(@RequestBody TransferDetails transferDetails,
-			@PathVariable Long customerNumber) {
-
-		return bankingService.transferDetails(transferDetails, customerNumber);
-	}
+        bankingService.transferAmount(transferDetails, customerNumber);
+        return ResponseEntity.ok().build();
+    }
 
 		@GetMapping(path = "/transactions/{accountNumber}")
 	@ApiOperation(value = "Get all transactions", notes = "Get all Transactions by account number")
