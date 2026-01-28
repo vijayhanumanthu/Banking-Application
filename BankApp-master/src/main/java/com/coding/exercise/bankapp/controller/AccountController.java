@@ -65,14 +65,12 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-		@GetMapping(path = "/transactions/{accountNumber}")
-	@ApiOperation(value = "Get all transactions", notes = "Get all Transactions by account number")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Internal Server Error") })
+    @GetMapping("/{accountNumber}/transactions")
+    public ResponseEntity<List<TransactionDetails>> getTransactions(
+            @PathVariable Long accountNumber) {
 
-	public List<TransactionDetails> getTransactionByAccountNumber(@PathVariable Long accountNumber) {
-
-		return bankingService.findTransactionsByAccountNumber(accountNumber);
-	}
+        return ResponseEntity.ok(
+                bankingService.findTransactionsByAccountNumber(accountNumber)
+        );
+    }
 }
