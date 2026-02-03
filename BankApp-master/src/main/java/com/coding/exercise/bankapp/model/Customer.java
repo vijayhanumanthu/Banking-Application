@@ -25,7 +25,87 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer {
 
-    @Id
+    public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public Long getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public void setCustomerNumber(Long customerNumber) {
+		this.customerNumber = customerNumber;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Address getCustomerAddress() {
+		return customerAddress;
+	}
+
+	public void setCustomerAddress(Address customerAddress) {
+		this.customerAddress = customerAddress;
+	}
+
+	public Contact getContactDetails() {
+		return contactDetails;
+	}
+
+	public void setContactDetails(Contact contactDetails) {
+		this.contactDetails = contactDetails;
+	}
+
+	public Date getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(Date createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public Date getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(Date updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
+
+	@Id
     @GeneratedValue
     @Column(name="CUST_ID")
     private UUID id;
