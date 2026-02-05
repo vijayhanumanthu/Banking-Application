@@ -30,6 +30,70 @@ public class Account {
 	@Column(name="ACCT_ID")
 	private UUID id;
 	
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public Long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(Long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public BankInfo getBankInformation() {
+		return bankInformation;
+	}
+
+	public void setBankInformation(BankInfo bankInformation) {
+		this.bankInformation = bankInformation;
+	}
+
+	public String getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(String accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public Double getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(Double accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+
+	public Date getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(Date createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public Date getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(Date updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
+
 	private Long accountNumber;
 	
 	@OneToOne(cascade=CascadeType.ALL)
