@@ -27,6 +27,46 @@ public class BankInfo {
 	@Column(name="BANK_ID")
 	private UUID id;
 	
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	public Integer getBranchCode() {
+		return branchCode;
+	}
+
+	public void setBranchCode(Integer branchCode) {
+		this.branchCode = branchCode;
+	}
+
+	public Address getBranchAddress() {
+		return branchAddress;
+	}
+
+	public void setBranchAddress(Address branchAddress) {
+		this.branchAddress = branchAddress;
+	}
+
+	public Integer getRoutingNumber() {
+		return routingNumber;
+	}
+
+	public void setRoutingNumber(Integer routingNumber) {
+		this.routingNumber = routingNumber;
+	}
+
 	private String branchName;
 	
 	private Integer branchCode;
