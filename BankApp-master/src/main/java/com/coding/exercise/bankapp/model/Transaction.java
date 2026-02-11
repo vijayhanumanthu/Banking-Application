@@ -28,6 +28,46 @@ public class Transaction {
 	@Column(name="TX_ID")
 	private UUID id;
 	
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public Long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(Long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public Date getTxDateTime() {
+		return txDateTime;
+	}
+
+	public void setTxDateTime(Date txDateTime) {
+		this.txDateTime = txDateTime;
+	}
+
+	public String getTxType() {
+		return txType;
+	}
+
+	public void setTxType(String txType) {
+		this.txType = txType;
+	}
+
+	public Double getTxAmount() {
+		return txAmount;
+	}
+
+	public void setTxAmount(Double txAmount) {
+		this.txAmount = txAmount;
+	}
+
 	private Long accountNumber;
 	
 	@Temporal(TemporalType.TIME)
