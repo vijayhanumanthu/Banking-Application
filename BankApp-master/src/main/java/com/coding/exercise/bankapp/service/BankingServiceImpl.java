@@ -31,8 +31,7 @@ import com.coding.exercise.bankapp.service.helper.BankingServiceHelper;
 @Transactional
 public class BankingServiceImpl implements BankingService {
 
-	@Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 	@Autowired
     private AccountRepository accountRepository;
 	@Autowired
@@ -46,14 +45,12 @@ public class BankingServiceImpl implements BankingService {
         this.customerRepository=repository;
     }
     
-	public ResponseEntity<Object> addCustomer(CustomerDetails customerDetails) {
-		
-		Customer customer = bankingServiceHelper.convertToCustomerEntity(customerDetails);
-		customer.setCreateDateTime(new Date());
-		customerRepository.save(customer);
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body("New Customer created successfully.");
-	}
+    @Override
+    public void addCustomer(CustomerDetails customerDetails) {
+        Customer customer = bankingServiceHelper.convertToCustomerEntity(customerDetails);
+        customer.setCreateDateTime(new Date());
+        customerRepository.save(customer);
+    }
 	
 	public ResponseEntity<Object> findByAccountNumber(Long accountNumber) {
 		
