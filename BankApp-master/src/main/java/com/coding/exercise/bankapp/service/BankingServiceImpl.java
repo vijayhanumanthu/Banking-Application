@@ -46,23 +46,20 @@ public class BankingServiceImpl implements BankingService {
     }
     
     @Override
-    public void addCustomer(CustomerDetails customerDetails) {
+    public CustomerDetails addCustomer(CustomerDetails customerDetails) {
         Customer customer = bankingServiceHelper.convertToCustomerEntity(customerDetails);
         customer.setCreateDateTime(new Date());
         customerRepository.save(customer);
+		return customerDetails;
     }
 	
-	public ResponseEntity<Object> findByAccountNumber(Long accountNumber) {
-		
-		Optional<Account> accountEntityOpt = accountRepository.findByAccountNumber(accountNumber);
+    @Override
+    public AccountInformation findAccountByNumber(Long accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new RuntimeException("Account not found: " + accountNumber));
 
-		if(accountEntityOpt.isPresent()) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(bankingServiceHelper.convertToAccountDomain(accountEntityOpt.get()));
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account Number " + accountNumber + " not found.");
-		}
-		
-	}
+        return bankingServiceHelper.convertToAccountDomain(account);
+    }
 
 	public ResponseEntity<Object> addNewAccount(AccountInformation accountInformation, Long customerNumber) {
 		
