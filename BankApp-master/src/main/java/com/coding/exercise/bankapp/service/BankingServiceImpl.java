@@ -61,23 +61,21 @@ public class BankingServiceImpl implements BankingService {
         return bankingServiceHelper.convertToAccountDomain(account);
     }
 
-	public ResponseEntity<Object> addNewAccount(AccountInformation accountInformation, Long customerNumber) {
-		
-		Optional<Customer> customerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
+    @Override
+    public AccountInformation addNewAccount(AccountInformation accountInformation, Long customerNumber) {
+        Customer customer = customerRepository.findByCustomerNumber(customerNumber)
+                .orElseThrow(() -> new RuntimeException("Customer not found: " + customerNumber));
 
-		if(customerEntityOpt.isPresent()) {
-			accountRepository.save(bankingServiceHelper.convertToAccountEntity(accountInformation));
-			
-			// Add an entry to the CustomerAccountXRef
-			custAccXRefRepository.save(CustomerAccountXRef.builder()
-					.accountNumber(accountInformation.getAccountNumber())
-					.customerNumber(customerNumber)
-					.build());
-			
-		}
+        Account account = bankingServiceHelper.convertToAccountEntity(accountInformation);
+        accountRepository.save(account);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body("New Account created successfully.");
-	}
+        custAccXRefRepository.save(
+                CustomerAccountXRef.builder()
+                        .accountNumber(account.getAccountNumber())
+                        .customerNumber(customer.getCustomerNumber())
+                        .build()
+        );
+    }
 
 	
 	public ResponseEntity<Object> transferDetails(TransferDetails transferDetails, Long customerNumber) {
