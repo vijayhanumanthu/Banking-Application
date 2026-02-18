@@ -11,6 +11,30 @@ import lombok.Setter;
 @Setter
 public class TransferDetails {
 
+	public Long getFromAccountNumber() {
+		return fromAccountNumber;
+	}
+
+	public void setFromAccountNumber(Long fromAccountNumber) {
+		this.fromAccountNumber = fromAccountNumber;
+	}
+
+	public Long getToAccountNumber() {
+		return toAccountNumber;
+	}
+
+	public void setToAccountNumber(Long toAccountNumber) {
+		this.toAccountNumber = toAccountNumber;
+	}
+
+	public Double getTransferAmount() {
+		return transferAmount;
+	}
+
+	public void setTransferAmount(Double transferAmount) {
+		this.transferAmount = transferAmount;
+	}
+
 	private Long fromAccountNumber;
 	
 	private Long toAccountNumber;
