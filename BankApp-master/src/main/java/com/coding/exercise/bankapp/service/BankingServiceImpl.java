@@ -123,17 +123,12 @@ public class BankingServiceImpl implements BankingService {
         transactionRepository.save(creditTxn);
     }
 
-	public List<CustomerDetails> findAll() {
-    	
-    	List<CustomerDetails> allCustomerDetails = new ArrayList<>();
-
-        Iterable<Customer> customerList = customerRepository.findAll();
-
-        customerList.forEach(customer -> {
-        	allCustomerDetails.add(bankingServiceHelper.convertToCustomerDomain(customer));
-        });
-        
-        return allCustomerDetails;
+    @Override
+    public List<CustomerDetails> findAllCustomers() {
+        return customerRepository.findAll()
+                .stream()
+                .map(bankingServiceHelper::convertToCustomerDomain)
+                .toList();
     }
 
 
