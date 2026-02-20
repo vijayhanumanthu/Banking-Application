@@ -131,52 +131,46 @@ public class BankingServiceImpl implements BankingService {
                 .toList();
     }
 
+    @Override
+    public CustomerDetails updateCustomer(CustomerDetails customerDetails, Long customerNumber) {
 
-	public ResponseEntity<Object> updateCustomer(CustomerDetails customerDetails, Long customerNumber) {
-		Optional<Customer> managedCustomerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
-		Customer unmanagedCustomerEntity = bankingServiceHelper.convertToCustomerEntity(customerDetails);
-		if(managedCustomerEntityOpt.isPresent()) {
-			Customer managedCustomerEntity = managedCustomerEntityOpt.get();
-			
-			if(Optional.ofNullable(unmanagedCustomerEntity.getContactDetails()).isPresent()) {
-				
-				Contact managedContact = managedCustomerEntity.getContactDetails();
-				if(managedContact != null) {
-					managedContact.setEmailId(unmanagedCustomerEntity.getContactDetails().getEmailId());
-					managedContact.setHomePhone(unmanagedCustomerEntity.getContactDetails().getHomePhone());
-					managedContact.setWorkPhone(unmanagedCustomerEntity.getContactDetails().getWorkPhone());
-				} else
-					managedCustomerEntity.setContactDetails(unmanagedCustomerEntity.getContactDetails());
-			}
-			
-			if(Optional.ofNullable(unmanagedCustomerEntity.getCustomerAddress()).isPresent()) {
-				
-				Address managedAddress = managedCustomerEntity.getCustomerAddress();
-				if(managedAddress != null) {
-					managedAddress.setAddress1(unmanagedCustomerEntity.getCustomerAddress().getAddress1());
-					managedAddress.setAddress2(unmanagedCustomerEntity.getCustomerAddress().getAddress2());
-					managedAddress.setCity(unmanagedCustomerEntity.getCustomerAddress().getCity());
-					managedAddress.setState(unmanagedCustomerEntity.getCustomerAddress().getState());
-					managedAddress.setZip(unmanagedCustomerEntity.getCustomerAddress().getZip());
-					managedAddress.setCountry(unmanagedCustomerEntity.getCustomerAddress().getCountry());
-				} else
-					managedCustomerEntity.setCustomerAddress(unmanagedCustomerEntity.getCustomerAddress());
-			}
-			
-			managedCustomerEntity.setUpdateDateTime(new Date());
-			managedCustomerEntity.setStatus(unmanagedCustomerEntity.getStatus());
-			managedCustomerEntity.setFirstName(unmanagedCustomerEntity.getFirstName());
-			managedCustomerEntity.setMiddleName(unmanagedCustomerEntity.getMiddleName());
-			managedCustomerEntity.setLastName(unmanagedCustomerEntity.getLastName());
-			managedCustomerEntity.setUpdateDateTime(new Date());
-			
-			customerRepository.save(managedCustomerEntity);
-			
-			return ResponseEntity.status(HttpStatus.OK).body("Success: Customer updated.");
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer Number " + customerNumber + " not found.");
-		}
-	}
+        Customer managed = customerRepository.findByCustomerNumber(customerNumber)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        Customer incoming = bankingServiceHelper.convertToCustomerEntity(customerDetails);
+
+        managed.setFirstName(incoming.getFirstName());
+        managed.setMiddleName(incoming.getMiddleName());
+        managed.setLastName(incoming.getLastName());
+        managed.setStatus(incoming.getStatus());
+        managed.setUpdateDateTime(new Date());
+
+        if (incoming.getContactDetails() != null) {
+            if (managed.getContactDetails() == null)
+                managed.setContactDetails(incoming.getContactDetails());
+            else {
+                managed.getContactDetails().setEmailId(incoming.getContactDetails().getEmailId());
+                managed.getContactDetails().setHomePhone(incoming.getContactDetails().getHomePhone());
+                managed.getContactDetails().setWorkPhone(incoming.getContactDetails().getWorkPhone());
+            }
+        }
+
+        if (incoming.getCustomerAddress() != null) {
+            if (managed.getCustomerAddress() == null)
+                managed.setCustomerAddress(incoming.getCustomerAddress());
+            else {
+                managed.getCustomerAddress().setAddress1(incoming.getCustomerAddress().getAddress1());
+                managed.getCustomerAddress().setAddress2(incoming.getCustomerAddress().getAddress2());
+                managed.getCustomerAddress().setCity(incoming.getCustomerAddress().getCity());
+                managed.getCustomerAddress().setState(incoming.getCustomerAddress().getState());
+                managed.getCustomerAddress().setZip(incoming.getCustomerAddress().getZip());
+                managed.getCustomerAddress().setCountry(incoming.getCustomerAddress().getCountry());
+            }
+        }
+
+        customerRepository.save(managed);
+		return customerDetails;
+    }
 
 	public ResponseEntity<Object> deleteCustomer(Long customerNumber) {
 		
