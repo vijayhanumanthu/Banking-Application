@@ -172,19 +172,13 @@ public class BankingServiceImpl implements BankingService {
 		return customerDetails;
     }
 
-	public ResponseEntity<Object> deleteCustomer(Long customerNumber) {
-		
-		Optional<Customer> managedCustomerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
+    @Override
+    public void deleteCustomer(Long customerNumber) {
+        Customer customer = customerRepository.findByCustomerNumber(customerNumber)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-		if(managedCustomerEntityOpt.isPresent()) {
-			Customer managedCustomerEntity = managedCustomerEntityOpt.get();
-			customerRepository.delete(managedCustomerEntity);
-			return ResponseEntity.status(HttpStatus.OK).body("Success: Customer deleted.");
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Customer does not exist.");
-		}
-		
-	}
+        customerRepository.delete(customer);
+    }
 	
 	public CustomerDetails findByCustomerNumber(Long customerNumber) {
 		
