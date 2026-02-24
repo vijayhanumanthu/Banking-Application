@@ -180,13 +180,11 @@ public class BankingServiceImpl implements BankingService {
         customerRepository.delete(customer);
     }
 	
-	public CustomerDetails findByCustomerNumber(Long customerNumber) {
-		
-		Optional<Customer> customerEntityOpt = customerRepository.findByCustomerNumber(customerNumber);
+    @Override
+    public CustomerDetails findCustomerByNumber(Long customerNumber) {
+        Customer customer = customerRepository.findByCustomerNumber(customerNumber)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-		if(customerEntityOpt.isPresent())
-			return bankingServiceHelper.convertToCustomerDomain(customerEntityOpt.get());
-		
-		return null;
-	}
+        return bankingServiceHelper.convertToCustomerDomain(customer);
+    }
 }
