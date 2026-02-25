@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -125,10 +127,9 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public List<CustomerDetails> findAllCustomers() {
-        return customerRepository.findAll()
-                .stream()
+        return StreamSupport.stream(customerRepository.findAll().spliterator(), false)
                 .map(bankingServiceHelper::convertToCustomerDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -187,4 +188,10 @@ public class BankingServiceImpl implements BankingService {
 
         return bankingServiceHelper.convertToCustomerDomain(customer);
     }
+
+	@Override
+	public List<TransactionDetails> findTransactionsByAccountNumber(Long accountNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
