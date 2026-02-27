@@ -15,6 +15,54 @@ import lombok.Setter;
 @Builder
 public class AccountInformation {
 
+	public Long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(Long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public BankInformation getBankInformation() {
+		return bankInformation;
+	}
+
+	public void setBankInformation(BankInformation bankInformation) {
+		this.bankInformation = bankInformation;
+	}
+
+	public String getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(String accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public Double getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(Double accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+
+	public Date getAccountCreated() {
+		return accountCreated;
+	}
+
+	public void setAccountCreated(Date accountCreated) {
+		this.accountCreated = accountCreated;
+	}
+
 	private Long accountNumber;
 	
 	private BankInformation bankInformation;
