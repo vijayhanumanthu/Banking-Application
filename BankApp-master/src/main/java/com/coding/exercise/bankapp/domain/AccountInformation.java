@@ -14,6 +14,18 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AccountInformation {
+	
+	private Long accountNumber;
+	
+	private BankInformation bankInformation;
+	
+	private String accountStatus;
+	
+	private String accountType;
+	
+	private Double accountBalance;
+	
+	private Date accountCreated;
 
 	public Long getAccountNumber() {
 		return accountNumber;
@@ -63,15 +75,4 @@ public class AccountInformation {
 		this.accountCreated = accountCreated;
 	}
 
-	private Long accountNumber;
-	
-	private BankInformation bankInformation;
-	
-	private String accountStatus;
-	
-	private String accountType;
-	
-	private Double accountBalance;
-	
-	private Date accountCreated;
 }
