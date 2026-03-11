@@ -13,6 +13,14 @@ import lombok.Setter;
 @Builder
 public class BankInformation {
 
+	private String branchName;
+	
+	private Integer branchCode;
+	
+	private AddressDetails branchAddress;
+	
+	private Integer routingNumber;
+
 	public String getBranchName() {
 		return branchName;
 	}
@@ -44,12 +52,4 @@ public class BankInformation {
 	public void setRoutingNumber(Integer routingNumber) {
 		this.routingNumber = routingNumber;
 	}
-
-	private String branchName;
-	
-	private Integer branchCode;
-	
-	private AddressDetails branchAddress;
-	
-	private Integer routingNumber;
 }
