@@ -13,6 +13,13 @@ import lombok.Setter;
 @Builder
 public class ContactDetails {
 
+	
+	private String emailId;
+	
+	private String homePhone;
+	
+	private String workPhone;
+
 	public String getEmailId() {
 		return emailId;
 	}
@@ -36,10 +43,4 @@ public class ContactDetails {
 	public void setWorkPhone(String workPhone) {
 		this.workPhone = workPhone;
 	}
-
-	private String emailId;
-	
-	private String homePhone;
-	
-	private String workPhone;
 }
