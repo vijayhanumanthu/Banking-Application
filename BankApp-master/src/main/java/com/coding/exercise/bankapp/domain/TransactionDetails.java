@@ -15,6 +15,14 @@ import lombok.Setter;
 @Builder
 public class TransactionDetails {
 
+ 	private Long accountNumber;
+	
+	private Date txDateTime;
+	
+	private String txType;
+	
+	private Double txAmount;
+
 	public Long getAccountNumber() {
 		return accountNumber;
 	}
@@ -46,12 +54,4 @@ public class TransactionDetails {
 	public void setTxAmount(Double txAmount) {
 		this.txAmount = txAmount;
 	}
-
-	private Long accountNumber;
-	
-	private Date txDateTime;
-	
-	private String txType;
-	
-	private Double txAmount;
 }
