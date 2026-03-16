@@ -26,6 +26,7 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="TX_ID")
+	
 	private UUID id;
 	private Long accountNumber;
 	@Temporal(TemporalType.TIME)
