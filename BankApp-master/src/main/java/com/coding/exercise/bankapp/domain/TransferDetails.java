@@ -17,6 +17,10 @@ public class TransferDetails {
 
 	private Double transferAmount;
 	
+	
+	
+	
+	
 	public Long getFromAccountNumber() {
 		return fromAccountNumber;
 	}
