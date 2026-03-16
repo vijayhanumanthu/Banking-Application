@@ -29,6 +29,23 @@ public class Account {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ACCT_ID")
 	private UUID id;
+
+	private Long accountNumber;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private BankInfo bankInformation;
+	
+	private String accountStatus;
+	
+	private String accountType;
+	
+	private Double accountBalance;
+    
+    @Temporal(TemporalType.TIME)
+	private Date createDateTime;
+	
+    @Temporal(TemporalType.TIME)
+	private Date updateDateTime;
 	
 	public UUID getId() {
 		return id;
@@ -94,20 +111,4 @@ public class Account {
 		this.updateDateTime = updateDateTime;
 	}
 
-	private Long accountNumber;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	private BankInfo bankInformation;
-	
-	private String accountStatus;
-	
-	private String accountType;
-	
-	private Double accountBalance;
-    
-    @Temporal(TemporalType.TIME)
-	private Date createDateTime;
-	
-    @Temporal(TemporalType.TIME)
-	private Date updateDateTime;
 }
