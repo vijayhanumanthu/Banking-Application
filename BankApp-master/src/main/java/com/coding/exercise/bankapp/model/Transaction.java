@@ -27,6 +27,13 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="TX_ID")
 	private UUID id;
+	private Long accountNumber;
+	@Temporal(TemporalType.TIME)
+	private Date txDateTime;
+	
+	private String txType;
+	
+	private Double txAmount;
 	
 	public UUID getId() {
 		return id;
@@ -67,13 +74,4 @@ public class Transaction {
 	public void setTxAmount(Double txAmount) {
 		this.txAmount = txAmount;
 	}
-
-	private Long accountNumber;
-	
-	@Temporal(TemporalType.TIME)
-	private Date txDateTime;
-	
-	private String txType;
-	
-	private Double txAmount;
 }
