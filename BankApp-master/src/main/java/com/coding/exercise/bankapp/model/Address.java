@@ -24,6 +24,12 @@ public class Address {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ADDR_ID")
 	private UUID id;
+	private String address1;
+	private String address2;
+	private String city;
+	private String state;
+	private String zip;
+	private String country;
 	
 	public UUID getId() {
 		return id;
@@ -67,11 +73,5 @@ public class Address {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	private String address1;
-	private String address2;
-	private String city;
-	private String state;
-	private String zip;
-	private String country;
 
 }
