@@ -26,6 +26,14 @@ public class BankInfo {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="BANK_ID")
 	private UUID id;
+	private String branchName;
+	
+	private Integer branchCode;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Address branchAddress;
+	
+	private Integer routingNumber;
 	
 	public UUID getId() {
 		return id;
@@ -67,13 +75,5 @@ public class BankInfo {
 		this.routingNumber = routingNumber;
 	}
 
-	private String branchName;
-	
-	private Integer branchCode;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	private Address branchAddress;
-	
-	private Integer routingNumber;
 	
 }
