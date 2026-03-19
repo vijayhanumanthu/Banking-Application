@@ -24,6 +24,12 @@ public class Contact {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="CONTACT_ID")
 	private UUID id;
+
+	private String emailId;
+	
+	private String homePhone;
+	
+	private String workPhone;
 	
 	public UUID getId() {
 		return id;
@@ -56,11 +62,5 @@ public class Contact {
 	public void setWorkPhone(String workPhone) {
 		this.workPhone = workPhone;
 	}
-
-	private String emailId;
-	
-	private String homePhone;
-	
-	private String workPhone;
 
 }
