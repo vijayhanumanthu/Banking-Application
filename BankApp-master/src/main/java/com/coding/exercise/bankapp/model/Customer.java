@@ -24,6 +24,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
+	@Id
+    @GeneratedValue
+    @Column(name="CUST_ID")
+    private UUID id;
+    
+    private String firstName;
+    
+    private String lastName;
+    
+    private String middleName;
+    
+    private Long customerNumber;
+    
+    private String status;
+    
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Address customerAddress;
+    
+    @OneToOne(cascade=CascadeType.ALL)
+    private Contact contactDetails;
+    
+    @Temporal(TemporalType.TIME)
+	private Date createDateTime;
+	
+    @Temporal(TemporalType.TIME)
+	private Date updateDateTime;
 
     public UUID getId() {
 		return id;
@@ -104,32 +130,5 @@ public class Customer {
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
-
-	@Id
-    @GeneratedValue
-    @Column(name="CUST_ID")
-    private UUID id;
-    
-    private String firstName;
-    
-    private String lastName;
-    
-    private String middleName;
-    
-    private Long customerNumber;
-    
-    private String status;
-    
-    @ManyToOne(cascade=CascadeType.ALL)
-    private Address customerAddress;
-    
-    @OneToOne(cascade=CascadeType.ALL)
-    private Contact contactDetails;
-    
-    @Temporal(TemporalType.TIME)
-	private Date createDateTime;
-	
-    @Temporal(TemporalType.TIME)
-	private Date updateDateTime;
 	
 }
