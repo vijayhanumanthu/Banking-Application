@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
-	
 	@Id
     @GeneratedValue
     @Column(name="CUST_ID")
