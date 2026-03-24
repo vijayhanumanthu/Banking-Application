@@ -25,6 +25,10 @@ public class CustomerAccountXRef {
 	@Column(name="CUST_ACC_XREF_ID")
 	private UUID id;
 	
+	private Long accountNumber;
+	
+	private Long customerNumber;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -48,9 +52,5 @@ public class CustomerAccountXRef {
 	public void setCustomerNumber(Long customerNumber) {
 		this.customerNumber = customerNumber;
 	}
-
-	private Long accountNumber;
-	
-	private Long customerNumber;
 	
 }
