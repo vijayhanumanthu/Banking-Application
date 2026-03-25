@@ -26,6 +26,7 @@ public class BankInfo {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="BANK_ID")
 	private UUID id;
+	
 	private String branchName;
 	
 	private Integer branchCode;

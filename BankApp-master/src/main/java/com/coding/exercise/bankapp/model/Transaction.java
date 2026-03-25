@@ -28,7 +28,9 @@ public class Transaction {
 	@Column(name="TX_ID")
 	
 	private UUID id;
+	
 	private Long accountNumber;
+	
 	@Temporal(TemporalType.TIME)
 	private Date txDateTime;
 	
