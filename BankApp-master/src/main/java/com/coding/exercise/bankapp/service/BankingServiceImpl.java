@@ -53,7 +53,7 @@ public class BankingServiceImpl implements BankingService {
     
     @Override
     public CustomerDetails addCustomer(CustomerDetails customerDetails) {
-        Customer customer = bankingServiceHelper.convertToCustomerEntity(customerDetails);
+        Customer customer = helper.convertToCustomerEntity(customerDetails);
         customer.setCreateDateTime(new Date());
         customerRepository.save(customer);
 		return customerDetails;
