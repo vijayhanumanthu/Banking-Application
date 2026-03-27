@@ -34,17 +34,21 @@ import com.coding.exercise.bankapp.service.helper.BankingServiceHelper;
 public class BankingServiceImpl implements BankingService {
 
     private final CustomerRepository customerRepository;
-	@Autowired
-    private AccountRepository accountRepository;
-	@Autowired
-    private TransactionRepository transactionRepository;
-	@Autowired
-    private CustomerAccountXRefRepository custAccXRefRepository;
-    @Autowired
-    private BankingServiceHelper bankingServiceHelper;
+    private final AccountRepository accountRepository;
+    private final TransactionRepository transactionRepository;
+    private final CustomerAccountXRefRepository custAccXRefRepository;
+    private final BankingServiceHelper helper;
 
-    public BankingServiceImpl(CustomerRepository repository) {
-        this.customerRepository=repository;
+    public BankingServiceImpl(CustomerRepository customerRepository,
+                              AccountRepository accountRepository,
+                              TransactionRepository transactionRepository,
+                              CustomerAccountXRefRepository custAccXRefRepository,
+                              BankingServiceHelper helper) {
+        this.customerRepository = customerRepository;
+        this.accountRepository = accountRepository;
+        this.transactionRepository = transactionRepository;
+        this.custAccXRefRepository = custAccXRefRepository;
+        this.helper = helper;
     }
     
     @Override
@@ -79,7 +83,6 @@ public class BankingServiceImpl implements BankingService {
         );
     }
 
-	
     @Override
     public void transferAmount(TransferDetails transferDetails, Long customerNumber) {
 
