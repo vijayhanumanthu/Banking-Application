@@ -55,8 +55,8 @@ public class BankingServiceImpl implements BankingService {
     public CustomerDetails addCustomer(CustomerDetails customerDetails) {
         Customer customer = helper.convertToCustomerEntity(customerDetails);
         customer.setCreateDateTime(new Date());
-        customerRepository.save(customer);
-		return customerDetails;
+        Customer saved = customerRepository.save(customer);
+        return helper.convertToCustomerDomain(saved);
     }
 	
     @Override
