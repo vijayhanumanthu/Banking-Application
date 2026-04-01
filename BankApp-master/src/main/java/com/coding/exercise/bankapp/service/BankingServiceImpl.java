@@ -64,7 +64,7 @@ public class BankingServiceImpl implements BankingService {
         Account account = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new RuntimeException("Account not found: " + accountNumber));
 
-        return bankingServiceHelper.convertToAccountDomain(account);
+        return helper.convertToAccountDomain(account);
     }
 
     @Override
