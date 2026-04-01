@@ -72,7 +72,7 @@ public class BankingServiceImpl implements BankingService {
         Customer customer = customerRepository.findByCustomerNumber(customerNumber)
                 .orElseThrow(() -> new RuntimeException("Customer not found: " + customerNumber));
 
-        Account account = bankingServiceHelper.convertToAccountEntity(accountInformation);
+        Account account = helper.convertToAccountEntity(accountInformation);
         accountRepository.save(account);
 
         custAccXRefRepository.save(
