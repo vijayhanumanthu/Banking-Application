@@ -116,11 +116,11 @@ public class BankingServiceImpl implements BankingService {
         accountRepository.save(fromAccount);
         accountRepository.save(toAccount);
 
-        Transaction debitTxn = bankingServiceHelper.createTransaction(
+        Transaction debitTxn = helper.createTransaction(
                 transferDetails, fromAccount.getAccountNumber(), "DEBIT"
         );
 
-        Transaction creditTxn = bankingServiceHelper.createTransaction(
+        Transaction creditTxn = helper.createTransaction(
                 transferDetails, toAccount.getAccountNumber(), "CREDIT"
         );
 
