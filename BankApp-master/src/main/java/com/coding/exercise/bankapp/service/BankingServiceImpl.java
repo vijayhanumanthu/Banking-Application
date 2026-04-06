@@ -131,7 +131,7 @@ public class BankingServiceImpl implements BankingService {
     @Override
     public List<CustomerDetails> findAllCustomers() {
         return StreamSupport.stream(customerRepository.findAll().spliterator(), false)
-                .map(bankingServiceHelper::convertToCustomerDomain)
+                .map(helper::convertToCustomerDomain)
                 .collect(Collectors.toList());
     }
 
