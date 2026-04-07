@@ -141,7 +141,7 @@ public class BankingServiceImpl implements BankingService {
         Customer managed = customerRepository.findByCustomerNumber(customerNumber)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-        Customer incoming = bankingServiceHelper.convertToCustomerEntity(customerDetails);
+        Customer incoming = helper.convertToCustomerEntity(customerDetails);
 
         managed.setFirstName(incoming.getFirstName());
         managed.setMiddleName(incoming.getMiddleName());
