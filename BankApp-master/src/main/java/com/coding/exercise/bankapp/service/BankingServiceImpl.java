@@ -189,7 +189,7 @@ public class BankingServiceImpl implements BankingService {
         Customer customer = customerRepository.findByCustomerNumber(customerNumber)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
-        return bankingServiceHelper.convertToCustomerDomain(customer);
+        return helper.convertToCustomerDomain(customer);
     }
 
 	@Override
