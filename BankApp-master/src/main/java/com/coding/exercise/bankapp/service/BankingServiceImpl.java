@@ -137,43 +137,15 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public CustomerDetails updateCustomer(CustomerDetails customerDetails, Long customerNumber) {
-
-        Customer managed = customerRepository.findByCustomerNumber(customerNumber)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
+        Customer managed = getCustomerOrThrow(customerNumber);
         Customer incoming = helper.convertToCustomerEntity(customerDetails);
 
-        managed.setFirstName(incoming.getFirstName());
-        managed.setMiddleName(incoming.getMiddleName());
-        managed.setLastName(incoming.getLastName());
-        managed.setStatus(incoming.getStatus());
-        managed.setUpdateDateTime(new Date());
+        updateBasicDetails(managed, incoming);
+        updateContactDetails(managed, incoming);
+        updateAddressDetails(managed, incoming);
 
-        if (incoming.getContactDetails() != null) {
-            if (managed.getContactDetails() == null)
-                managed.setContactDetails(incoming.getContactDetails());
-            else {
-                managed.getContactDetails().setEmailId(incoming.getContactDetails().getEmailId());
-                managed.getContactDetails().setHomePhone(incoming.getContactDetails().getHomePhone());
-                managed.getContactDetails().setWorkPhone(incoming.getContactDetails().getWorkPhone());
-            }
-        }
-
-        if (incoming.getCustomerAddress() != null) {
-            if (managed.getCustomerAddress() == null)
-                managed.setCustomerAddress(incoming.getCustomerAddress());
-            else {
-                managed.getCustomerAddress().setAddress1(incoming.getCustomerAddress().getAddress1());
-                managed.getCustomerAddress().setAddress2(incoming.getCustomerAddress().getAddress2());
-                managed.getCustomerAddress().setCity(incoming.getCustomerAddress().getCity());
-                managed.getCustomerAddress().setState(incoming.getCustomerAddress().getState());
-                managed.getCustomerAddress().setZip(incoming.getCustomerAddress().getZip());
-                managed.getCustomerAddress().setCountry(incoming.getCustomerAddress().getCountry());
-            }
-        }
-
-        customerRepository.save(managed);
-		return customerDetails;
+        Customer updated = customerRepository.save(managed);
+        return helper.convertToCustomerDomain(updated);
     }
 
     @Override
