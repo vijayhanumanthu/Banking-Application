@@ -85,47 +85,16 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public void transferAmount(TransferDetails transferDetails, Long customerNumber) {
+        getCustomerOrThrow(customerNumber);
 
-        customerRepository.findByCustomerNumber(customerNumber)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        Account fromAccount = getAccountOrThrow(transferDetails.getFromAccountNumber());
+        Account toAccount = getAccountOrThrow(transferDetails.getToAccountNumber());
 
-        Account fromAccount = accountRepository.findByAccountNumber(
-                transferDetails.getFromAccountNumber()
-        ).orElseThrow(() -> new RuntimeException("From account not found"));
+        validateSufficientBalance(fromAccount, transferDetails.getTransferAmount());
 
-        Account toAccount = accountRepository.findByAccountNumber(
-                transferDetails.getToAccountNumber()
-        ).orElseThrow(() -> new RuntimeException("To account not found"));
+        updateBalances(fromAccount, toAccount, transferDetails.getTransferAmount());
 
-        if (fromAccount.getAccountBalance() < transferDetails.getTransferAmount()) {
-            throw new RuntimeException("Insufficient funds");
-        }
-
-        // Atomic update via @Transactional
-        fromAccount.setAccountBalance(
-                fromAccount.getAccountBalance() - transferDetails.getTransferAmount()
-        );
-
-        toAccount.setAccountBalance(
-                toAccount.getAccountBalance() + transferDetails.getTransferAmount()
-        );
-
-        fromAccount.setUpdateDateTime(new Date());
-        toAccount.setUpdateDateTime(new Date());
-
-        accountRepository.save(fromAccount);
-        accountRepository.save(toAccount);
-
-        Transaction debitTxn = helper.createTransaction(
-                transferDetails, fromAccount.getAccountNumber(), "DEBIT"
-        );
-
-        Transaction creditTxn = helper.createTransaction(
-                transferDetails, toAccount.getAccountNumber(), "CREDIT"
-        );
-
-        transactionRepository.save(debitTxn);
-        transactionRepository.save(creditTxn);
+        saveTransactions(transferDetails, fromAccount, toAccount);
     }
 
     @Override
