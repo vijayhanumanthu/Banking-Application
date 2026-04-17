@@ -150,9 +150,7 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public void deleteCustomer(Long customerNumber) {
-        Customer customer = customerRepository.findByCustomerNumber(customerNumber)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
+        Customer customer = getCustomerOrThrow(customerNumber);
         customerRepository.delete(customer);
     }
 	
