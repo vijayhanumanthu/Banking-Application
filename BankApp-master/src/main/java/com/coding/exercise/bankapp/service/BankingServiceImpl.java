@@ -66,21 +66,19 @@ public class BankingServiceImpl implements BankingService {
 
         return helper.convertToAccountDomain(account);
     }
-
     @Override
     public AccountInformation addNewAccount(AccountInformation accountInformation, Long customerNumber) {
-        Customer customer = customerRepository.findByCustomerNumber(customerNumber)
-                .orElseThrow(() -> new RuntimeException("Customer not found: " + customerNumber));
+        Customer customer = getCustomerOrThrow(customerNumber);
 
         Account account = helper.convertToAccountEntity(accountInformation);
-        accountRepository.save(account);
+        Account savedAccount = accountRepository.save(account);
 
-        custAccXRefRepository.save(
-                CustomerAccountXRef.builder()
-                        .accountNumber(account.getAccountNumber())
-                        .customerNumber(customer.getCustomerNumber())
-                        .build()
-        );
+        custAccXRefRepository.save(CustomerAccountXRef.builder()
+                .accountNumber(savedAccount.getAccountNumber())
+                .customerNumber(customer.getCustomerNumber())
+                .build());
+
+        return helper.convertToAccountDomain(savedAccount);
     }
 
     @Override
