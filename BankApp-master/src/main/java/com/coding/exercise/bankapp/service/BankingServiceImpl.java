@@ -61,11 +61,10 @@ public class BankingServiceImpl implements BankingService {
 	
     @Override
     public AccountInformation findAccountByNumber(Long accountNumber) {
-        Account account = accountRepository.findByAccountNumber(accountNumber)
-                .orElseThrow(() -> new RuntimeException("Account not found: " + accountNumber));
-
+        Account account = getAccountOrThrow(accountNumber);
         return helper.convertToAccountDomain(account);
     }
+    
     @Override
     public AccountInformation addNewAccount(AccountInformation accountInformation, Long customerNumber) {
         Customer customer = getCustomerOrThrow(customerNumber);
