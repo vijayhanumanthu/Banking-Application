@@ -122,10 +122,7 @@ public class BankingServiceImpl implements BankingService {
 	
     @Override
     public CustomerDetails findCustomerByNumber(Long customerNumber) {
-        Customer customer = customerRepository.findByCustomerNumber(customerNumber)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
-        return helper.convertToCustomerDomain(customer);
+        return helper.convertToCustomerDomain(getCustomerOrThrow(customerNumber));
     }
 
 	@Override
