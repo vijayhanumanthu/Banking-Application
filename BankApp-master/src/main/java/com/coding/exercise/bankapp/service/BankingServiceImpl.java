@@ -125,8 +125,11 @@ public class BankingServiceImpl implements BankingService {
         return helper.convertToCustomerDomain(getCustomerOrThrow(customerNumber));
     }
 
-	@Override
-	public List<TransactionDetails> findTransactionsByAccountNumber(Long accountNumber) {
-		return null;
-	}
+    @Override
+    public List<TransactionDetails> findTransactionsByAccountNumber(Long accountNumber) {
+        return transactionRepository.findByAccountNumber(accountNumber)
+                .stream()
+                .map(helper::convertToTransactionDomain)
+                .collect(Collectors.toList());
+    }
 }
