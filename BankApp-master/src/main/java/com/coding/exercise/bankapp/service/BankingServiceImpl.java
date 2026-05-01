@@ -132,4 +132,9 @@ public class BankingServiceImpl implements BankingService {
                 .map(helper::convertToTransactionDomain)
                 .collect(Collectors.toList());
     }
+    
+    private Customer getCustomerOrThrow(Long customerNumber) {
+        return customerRepository.findByCustomerNumber(customerNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found: " + customerNumber));
+    }
 }
