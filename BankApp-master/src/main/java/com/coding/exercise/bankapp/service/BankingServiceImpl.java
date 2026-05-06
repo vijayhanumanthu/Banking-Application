@@ -141,4 +141,9 @@ public class BankingServiceImpl implements BankingService {
         return accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new IllegalArgumentException("Account not found: " + accountNumber));
     }
+    private void validateSufficientBalance(Account account, double amount) {
+        if (account.getAccountBalance() < amount) {
+            throw new IllegalArgumentException("Insufficient funds");
+        }
+    }
 }
