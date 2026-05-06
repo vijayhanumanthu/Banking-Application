@@ -137,4 +137,8 @@ public class BankingServiceImpl implements BankingService {
         return customerRepository.findByCustomerNumber(customerNumber)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found: " + customerNumber));
     }
+    private Account getAccountOrThrow(Long accountNumber) {
+        return accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Account not found: " + accountNumber));
+    }
 }
