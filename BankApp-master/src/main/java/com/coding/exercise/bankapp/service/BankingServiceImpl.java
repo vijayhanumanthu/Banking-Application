@@ -146,4 +146,16 @@ public class BankingServiceImpl implements BankingService {
             throw new IllegalArgumentException("Insufficient funds");
         }
     }
+    
+    private void updateBalances(Account from, Account to, double amount) {
+        from.setAccountBalance(from.getAccountBalance() - amount);
+        to.setAccountBalance(to.getAccountBalance() + amount);
+
+        Date now = new Date();
+        from.setUpdateDateTime(now);
+        to.setUpdateDateTime(now);
+
+        accountRepository.save(from);
+        accountRepository.save(to);
+    }
 }
