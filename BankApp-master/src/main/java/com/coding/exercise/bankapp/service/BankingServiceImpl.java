@@ -158,4 +158,11 @@ public class BankingServiceImpl implements BankingService {
         accountRepository.save(from);
         accountRepository.save(to);
     }
+    private void saveTransactions(TransferDetails transferDetails, Account from, Account to) {
+        Transaction debitTxn = helper.createTransaction(transferDetails, from.getAccountNumber(), "DEBIT");
+        Transaction creditTxn = helper.createTransaction(transferDetails, to.getAccountNumber(), "CREDIT");
+
+        transactionRepository.save(debitTxn);
+        transactionRepository.save(creditTxn);
+    }
 }
