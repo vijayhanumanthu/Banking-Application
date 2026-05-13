@@ -165,4 +165,11 @@ public class BankingServiceImpl implements BankingService {
         transactionRepository.save(debitTxn);
         transactionRepository.save(creditTxn);
     }
+    private void updateBasicDetails(Customer managed, Customer incoming) {
+        managed.setFirstName(incoming.getFirstName());
+        managed.setMiddleName(incoming.getMiddleName());
+        managed.setLastName(incoming.getLastName());
+        managed.setStatus(incoming.getStatus());
+        managed.setUpdateDateTime(new Date());
+    }
 }
