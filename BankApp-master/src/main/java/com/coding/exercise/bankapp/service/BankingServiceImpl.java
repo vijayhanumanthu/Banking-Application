@@ -183,4 +183,19 @@ public class BankingServiceImpl implements BankingService {
             managed.getContactDetails().setWorkPhone(incoming.getContactDetails().getWorkPhone());
         }
     }
+    
+    private void updateAddressDetails(Customer managed, Customer incoming) {
+        if (incoming.getCustomerAddress() == null) return;
+
+        if (managed.getCustomerAddress() == null) {
+            managed.setCustomerAddress(incoming.getCustomerAddress());
+        } else {
+            managed.getCustomerAddress().setAddress1(incoming.getCustomerAddress().getAddress1());
+            managed.getCustomerAddress().setAddress2(incoming.getCustomerAddress().getAddress2());
+            managed.getCustomerAddress().setCity(incoming.getCustomerAddress().getCity());
+            managed.getCustomerAddress().setState(incoming.getCustomerAddress().getState());
+            managed.getCustomerAddress().setZip(incoming.getCustomerAddress().getZip());
+            managed.getCustomerAddress().setCountry(incoming.getCustomerAddress().getCountry());
+        }
+    }
 }
