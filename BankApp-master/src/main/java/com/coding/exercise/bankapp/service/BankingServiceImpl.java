@@ -172,4 +172,15 @@ public class BankingServiceImpl implements BankingService {
         managed.setStatus(incoming.getStatus());
         managed.setUpdateDateTime(new Date());
     }
+    private void updateContactDetails(Customer managed, Customer incoming) {
+        if (incoming.getContactDetails() == null) return;
+
+        if (managed.getContactDetails() == null) {
+            managed.setContactDetails(incoming.getContactDetails());
+        } else {
+            managed.getContactDetails().setEmailId(incoming.getContactDetails().getEmailId());
+            managed.getContactDetails().setHomePhone(incoming.getContactDetails().getHomePhone());
+            managed.getContactDetails().setWorkPhone(incoming.getContactDetails().getWorkPhone());
+        }
+    }
 }
