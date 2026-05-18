@@ -64,7 +64,6 @@ public class BankingServiceImpl implements BankingService {
         Account account = getAccountOrThrow(accountNumber);
         return helper.convertToAccountDomain(account);
     }
-    
     @Override
     public AccountInformation addNewAccount(AccountInformation accountInformation, Long customerNumber) {
         Customer customer = getCustomerOrThrow(customerNumber);
